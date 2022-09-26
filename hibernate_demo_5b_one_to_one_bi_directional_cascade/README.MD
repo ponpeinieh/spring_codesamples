@@ -35,6 +35,14 @@ try {
 	sessionFactory.close();
 }
 ```
+
+- Error message when we try to delete the child entity(InstructorDetail), but the association relationship is still there.
+
+```
+javax.persistence.EntityNotFoundException: deleted object would be re-saved by cascade (remove deleted object from associations): [com.example.hibernate.demo.entity.InstructorDetail#9]
+
+```
+
 - orphanRemoval 
 	- We can annotate the OneToOne mapping of InstructorDetail field in Instructor entity with orphanRemoval attribute set to true, so it will automatically remove the child entity (InstructorDetail) once the association has been broken
 	- Below notes are from Oracle
