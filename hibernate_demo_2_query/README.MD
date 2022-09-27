@@ -4,7 +4,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
 	- Hibernate identity - primary key
 	- let database generate a pk for us
 	- can specify different pk generation strategies
-	- @GenerateValue(strategy=GenerationType.IDENTITY) - use auto increment pk
+	- @GeneratedValue(strategy=GenerationType.IDENTITY) - use auto increment pk
 
 - Primary key generation strategies:
 	- GenerationType.AUTO : use an appropriate strategy for the particular db

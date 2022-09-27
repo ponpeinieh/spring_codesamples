@@ -2,10 +2,10 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
  
 - One-to-many mapping with Bi-Directional relationship
 - One instructor can have many courses, but one course can have only one instructor
-- Delete the Course won't delete the Instructor, and vice versa, so the cascade attribute needs to specify all but CascadeType.REMOVE
+- Delete the Course won't delete the Instructor, and vice versa, so the cascade type attribute needs to specify all but CascadeType.REMOVE
 
-- Course entity
-	- `@JoinColumn` is needed to specify the actual column name of the foreign key in the course table
+- Course entity (on the many side)
+	- `@JoinColumn` is needed to specify the foreign key column in the course table
 
 ```
 @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
@@ -13,9 +13,9 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
 private Instructor instructor;
 ```
 
-- Instructor entity
+- Instructor entity (on the one side)
 	- Use a collection, such as List, to store the courses.
-	- `mappedBy` attribute is needed to specify the field name on the other side of the relation ship which has the @JoinColumn annotation. Similar to the 1-to-1 bi-directional example.
+	- `mappedBy` attribute is needed to specify the field name on the many side of the relationship which has the @JoinColumn annotation. Similar to the 1-to-1 bi-directional example.
 
 ```
 @OneToMany(mappedBy = "instructor", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
@@ -23,11 +23,11 @@ private Instructor instructor;
 private List<Course> courses;
 ```
 
-- In summary, for the 1-to-many relationship, 
+- In summary, for the bi-directional 1-to-many relationship, 
 	- On the many side of it, that is where the foreign key is defined, @ManyToOne is needed on the FK field and @JoinColumn to specify the FK column name
-	- On the one side of it, a collection is required to store the entities and @OneToMany(mappedBy=xxxx) is needed to specify the corresponding field name on the other side of the relationship which has the @JoinColumn annotation.
+	- On the one side of it, a collection is required to store the entities and @OneToMany(mappedBy=xxxx) is needed to specify the corresponding field name on the many side of the relationship which has the @JoinColumn annotation.
 
-- A helper method in Instructor is created, ie. `add()` to add the Course entity into the collection and set the corresponding Instructor reference in the Course entity.
+- A helper method in Instructor is created, ie. `add()` to add the Course entity into the collection and set the corresponding Instructor reference for the Course entity.
 
 - Code
 	- Course entity
@@ -203,10 +203,13 @@ public class Instructor {
 ```
 
 - code - create courses - assume the Instructor object is queried from db.
+
 ```
 // Create a SessionFactory
-var sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Instructor.class)
-		.addAnnotatedClass(InstructorDetail.class).addAnnotatedClass(Course.class).buildSessionFactory();
+var sessionFactory = new Configuration().configure("hibernate.cfg.xml")
+		.addAnnotatedClass(Instructor.class)
+		.addAnnotatedClass(InstructorDetail.class)
+		.addAnnotatedClass(Course.class).buildSessionFactory();
 // Create a Session
 var session = sessionFactory.getCurrentSession();
 try { 
@@ -234,19 +237,21 @@ try {
 ```
 
 - code - create Instructor/InstructorDetial/Courses
-	- below code won't save courses associated with instructor object, why?
+	- below code won't save the courses associated with instructor object, why?
 	- Test: if CascadeType is changed to CascadeType.ALL , it will save associated course objects.
 	- See references : 
 		- https://mkyong.com/hibernate/cascade-jpa-hibernate-annotation-common-mistake/
 		- https://mkyong.com/hibernate/hibernate-cascade-example-save-update-delete-and-delete-orphan/
 	- In summary:
-		- The Hibernate save process will causing a ACTION_SAVE_UPDATE action, but the JPA will pass a ACTION_PERSIST and ACTION_MERGE, it will not match and causing the cascade failed to execute.
-		- Solution: Delete the JPA cascade(`javax.persistence.CascadeType`), replace it with Hibernate cascade(`org.hibernate.annotations.CascadeType`), with `CascadeType.SAVE_UPDATE`.
+		- The Hibernate save process will causing a `ACTION_SAVE_UPDATE` action, but the JPA will pass a `ACTION_PERSIST` and `ACTION_MERGE`, it will not match and causing the cascade failed to execute.
+		- Solution: Delete the JPA cascade(`javax.persistence.CascadeType`), replace it with Hibernate cascade(`org.hibernate.annotations.CascadeType`), using `CascadeType.SAVE_UPDATE`.
 
 ```
 // Create a SessionFactory
-var sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Instructor.class)
-		.addAnnotatedClass(InstructorDetail.class).addAnnotatedClass(Course.class).buildSessionFactory();
+var sessionFactory = new Configuration().configure("hibernate.cfg.xml")
+		.addAnnotatedClass(Instructor.class)
+		.addAnnotatedClass(InstructorDetail.class)
+		.addAnnotatedClass(Course.class).buildSessionFactory();
 // Create a Session
 var session = sessionFactory.getCurrentSession();
 // create a Instructor object
@@ -263,7 +268,7 @@ try {
 	System.out.println("Saving the Instructor object!");
 	session.beginTransaction();
 	// this will also save the InstructorDetail object, because of CascadeType.ALL
-	// but this won't save the courses, why?
+	// but this won't save the courses, why? See above explanation
 	session.save(i);
 	session.getTransaction().commit();
 	System.out.println("Done!");

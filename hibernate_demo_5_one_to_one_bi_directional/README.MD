@@ -6,7 +6,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
  @OneToOne(mappedBy="instructorDetail" , cascade = CascadeType.ALL) 
  private Instructor instructor;
 ```
-- `mappedBy` attribute is the field name in Instructor class of which the `@JoinColumn` will be used to retrieve the Instructor object
+- `mappedBy` attribute is the field name in Instructor class of which the `@JoinColumn` will be used to retrieve the InstructorDetail object
 
 ```
 package com.example.hibernate.demo.entity;

@@ -13,7 +13,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes
 - Use Eclipse JavaEE perspective
 - Dynamic web module version - 3.0 (4.0 is available)
 - Change source folder on build path - remove src/main/java and add src/
-- Change Content directory - change src/main/webapp to WebContent
+- Change web module settings: Content directory - change src/main/webapp to WebContent
 - WEB-INF/lib directory  - copy the spring framework lib jars to this directory	
 	- jars within the WEB-INF/lib  directory are added to the Java Build Path (Classpath) automatically.
 	- additional jars - javax.servlet.jsp.jstl-1.2.1.jar, javax.servlet.jsp.jstl-api-1.2.1.jar

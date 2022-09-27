@@ -15,10 +15,10 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes
 	- others
 - Java standard Bean Validation API(JSR-303) is a spec, not an implementation.
 	- Hibernate Team provide an implementation
-	- www.hibernate.org/validator
+	- **www.hibernate.org/validator**
 	- Hibernate Validator v.7 is supporting Jakarta EE 9, which uses jarkata package name, instead of javax name
-	- But Spring 5 still used javax package name, so is not compatible with Hibernate Validator 7. 
-	- So Hibernate Validator v.6.2 is used- which has the same features with version 7.
+	- But **Spring 5 still used javax package name**, so is not compatible with Hibernate Validator 7. 
+	- So **Hibernate Validator v.6.2 is used** - which has the same features with version 7.
 -  Hibernate Validator v.6.2 jar files include : the first 3 in the dist folder, the last 4 in the lib/required folder
 	- hibernate-validator-6.2.4.Final
 	- hibernate-validator-annotation-processor-6.2.4.Final

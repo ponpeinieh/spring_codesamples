@@ -36,7 +36,7 @@ try {
 }
 ```
 
-- Error message when we try to delete the child entity(InstructorDetail), but the association relationship is still there.
+- Error message when we try to delete the child entity(InstructorDetail), but the association relationship still exists.
 
 ```
 javax.persistence.EntityNotFoundException: deleted object would be re-saved by cascade (remove deleted object from associations): [com.example.hibernate.demo.entity.InstructorDetail#9]
@@ -44,7 +44,7 @@ javax.persistence.EntityNotFoundException: deleted object would be re-saved by c
 ```
 
 - orphanRemoval 
-	- We can annotate the OneToOne mapping of InstructorDetail field in Instructor entity with orphanRemoval attribute set to true, so it will automatically remove the child entity (InstructorDetail) once the association has been broken
+	- We can annotate the OneToOne mapping of InstructorDetail field in Instructor entity with `orphanRemoval` attribute set to true, so it will automatically remove the child entity (InstructorDetail) once the association has been broken
 	- Below notes are from Oracle
 ```
 Orphan Removal in Relationships
@@ -58,7 +58,7 @@ When a target entity in one-to-one or one-to-many relationship is removed from t
 private InstructorDetail instructorDetail;
 ```
 
-- So we can delete the InstructorDetail entity but not cascade delete the Instructor entity as below code:
+- So we can delete the InstructorDetail entity just by breaking the association, no need to call delete() on InstructorDetail entity.
 
 ```
 var sessionFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -75,7 +75,7 @@ try {
 	Instructor i = idl.getInstructor();
 	System.out.println("delete instructorDetail");
 	i.setInstructorDetail(null);
-	//session.delete(idl); //don't need to write this 
+	//session.delete(idl); //don't need to call delete()
 	session.getTransaction().commit();
 	System.out.println("Done!");
 } catch (Exception ex) {

@@ -23,7 +23,8 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
         }
         ```
         
-        - Review entity
+        - Review entity 
+            - note that there is no foreign key field , though the foreign key column is in the Review table.
 
         ```
         import javax.persistence.Column;
@@ -169,7 +170,8 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
             Hibernate: select reviews0_.course_id as course_i3_3_0_, reviews0_.id as id1_3_0_, reviews0_.id as id1_3_1_, reviews0_.comment as comment2_3_1_ from review reviews0_ where reviews0_.course_id=?
             ```
 
-        - Delete Course and Reviews
+        - Delete Course and Reviews 
+            - Cascade deletion is applied, but not efficient
 
             ```
             // Create a SessionFactory
@@ -186,7 +188,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
                 //get the course
                 int id = 12;
                 Course c = session.get(Course.class, id);
-                session.delete(c);
+                session.delete(c); // Cascade deletion is applied, but not efficient
                 //	
                 session.getTransaction().commit();
                 System.out.println("Done!");

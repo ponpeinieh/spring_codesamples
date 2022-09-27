@@ -1,7 +1,7 @@
 This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate demo. 
 - Many-To-Many mapping bi-directional relationship - Course and Student
     - Course entity:
-        - Note that Set should be used instead of List
+        - Note that `Set` should be used instead of `List`
         - **When you map a many-to-many association, you should use a `Set` instead of a List as the attribute type.** Otherwise, Hibernate will take a very inefficient approach to remove entities from the association. **It will remove all records from the association table and re-insert the remaining ones. You can avoid that by using a Set instead of a List as the attribute type.**
         - It is also essential that **CascadeType.REMOVE is not specified for many-to-many relationship**, otherwise it will cascade remove a lot more records than you would expect!!!
 
@@ -43,7 +43,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
 	}
     ```
 
-    - code for creating Course and Students
+    - code for creating Courses and Students
         - below code first save the Course entity and then save the Student entities separately
         - if not calling session.save() on Student entities, it will throw exception:
         ```

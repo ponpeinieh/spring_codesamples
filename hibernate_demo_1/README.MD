@@ -2,7 +2,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
 - Hibernate version:
 	- 2022/3: Hibernate 6 was released, but it supports Jakarta EE 9 which rename javax.* packages to jakarta.*
 	- Spring 5 currently doesn't support Jarkarta EE 9, so it can not use Hibernate version 6.
-	- Here Hibernate version 5 is used for Spring 5 applications.
+	- Here **Hibernate version 5 is used for Spring 5 applications.**
 - Hibernate 5.6 version download - https://sourceforge.net/projects/hibernate/files/hibernate-orm/5.6.5.Final/
 	- The jars are in lib/required folder
 - Mysql connector/J driver download - https://dev.mysql.com/downloads/connector/j/
@@ -140,7 +140,7 @@ public class Student {
 
 ### Hibernate code 
 
-- configure() method can use the default hibernate config file of `hibernate.cfg.xml`, so no input parameter is also allowed.
+- configure() method can use the default hibernate config file of `hibernate.cfg.xml`, so no input parameter is specified.
 ``` 
 import org.hibernate.cfg.Configuration;
 
@@ -150,8 +150,8 @@ public class CreateStudentDemo {
 
 	public static void main(String[] args) {
 		// Create a SessionFactory
-		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
-				.buildSessionFactory();
+		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Student.class).buildSessionFactory();
 		// Create a Session
 		Session session = sessionFactory.getCurrentSession();
 		// create a Student object

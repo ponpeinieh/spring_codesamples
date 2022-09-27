@@ -61,8 +61,8 @@ public class DateUtils {
     - javax.persistence.PrePersist, javax.persistence.PreUpdate
     - also change the timezone in the connection url in hibernate.cfg.xml
         - <property name="connection.url">jdbc:mysql://localhost:3306/hb_student_tracker?useSSL=false&amp;serverTimezone=Asia%2FTaipei</property>
-		- use timezone of `Asia/Taipei`, but use url encoding of `%2F` for the / character
-            - URL encoding replaces unsafe ASCII characters with a "%" followed by two hexadecimal digits.
+		- use timezone of `Asia/Taipei`, but use url encoding of `%2F` for the slash character
+            - URL encoding replaces unsafe ASCII characters with **a "%" followed by two hexadecimal digits.**
         - or use `GMT+8`, but need to url encode + character, ie. `GMT%2B8`
         
 

@@ -5,7 +5,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
 		- @OneToMany : FetchType.LAZY
 		- @ManyToOne : FetchType.EAGER
 		- @ManyToMany : FetchType.LAZY
-- To fetch lazy data, you need a open hibernate session. After Hibernate session is closed, attempt to retrieve lazy data will throw an exception.
+- **To fetch lazy data, you need an open hibernate session.** After Hibernate session is closed, attempt to retrieve lazy data will throw an exception.
 	- First option: use session.get() and then call getter methods
 	- Second option: use HQL queries
 - Lazy loading prefered
@@ -45,11 +45,9 @@ TRACE BasicBinder - binding parameter [1] as [INTEGER] - [2]
 ```
 
 - Change FetchType from default LAZY to EAGER
+	- @OneToMany(fetch = FetchType.EAGER)
 
 ```
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "instructor_detail_id")
-	private InstructorDetail instructorDetail;
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "instructor", cascade = { CascadeType.DETACH, CascadeType.MERGE,
 			CascadeType.PERSIST, CascadeType.REFRESH })
 	private List<Course> courses;

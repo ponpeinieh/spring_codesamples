@@ -20,14 +20,14 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
     - Remove : Transitions managed entity to be removed. Next flush / commit will delete from db.
     - Refresh : Reload / synch object with data from db. Prevents stale data
  
-- JPA Cascade Type : javax.persistence.CascadeType enum containing the following types
-    - CascadeType.ALL : propagates all operations, including Hibernate-specific ones, from a parent to a child entity.
+- JPA Cascade Type : **javax.persistence.CascadeType** enum containing the following types
+    - CascadeType.ALL : propagates all operations, **including Hibernate-specific ones**, from a parent to a child entity.
     - CascadeType.PERSIST : makes a transient instance persistent. Cascade Type PERSIST propagates the persist operation from a parent to a child entity. 
     - CascadeType.MERGE : The merge operation copies the state of the given object onto the persistent object with the same identifier. CascadeType.MERGE propagates the merge operation from a parent to a child entity.
-    - CascadeType.REMOVE : CascadeType.REMOVE propagates the remove operation from parent to child entity. Similar to JPA's CascadeType.REMOVE, we have CascadeType.DELETE, which is specific to Hibernate. There is no difference between the two.
+    - CascadeType.REMOVE : CascadeType.REMOVE propagates the remove operation from parent to child entity. Similar to JPA's CascadeType.REMOVE, we have **CascadeType.DELETE, which is specific to Hibernate**. There is no difference between the two.
     - CascadeType.DETACH : The detach operation removes the entity from the persistent context. When we use CascadeType.DETACH, the child entity will also get removed from the persistent context.
     - CascadeType.REFRESH : Refresh operations reread the value of a given instance from the database. In some cases, we may change an instance after persisting in the database, but later we need to undo those changes. In that kind of scenario, this may be useful. When we use this operation with Cascade Type REFRESH, the child entity also gets reloaded from the database whenever the parent entity is refreshed.
-- Hibernate Cascade Type: Hibernate supports three additional Cascade Types along with those specified by JPA. These Hibernate-specific Cascade Types are available in org.hibernate.annotations.CascadeType:
+- Hibernate Cascade Type: Hibernate supports three additional Cascade Types along with those specified by JPA. These Hibernate-specific Cascade Types are available in **org.hibernate.annotations.CascadeType**:
     - REPLICATE
     - SAVE_UPDATE
     - LOCK
@@ -242,7 +242,7 @@ public class Instructor {
 ```
 var sessionFactory = new Configuration().configure("hibernate.cfg.xml")
         .addAnnotatedClass(Instructor.class)
-        .addAnnotatedClass(InstructorDetail.class)
+        .addAnnotatedClass(InstructorDetail.class) 
         .buildSessionFactory();
 // Create a Session
 var session = sessionFactory.getCurrentSession();
