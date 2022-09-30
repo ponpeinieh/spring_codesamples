@@ -3,6 +3,8 @@ This is Spring demo from Udemy Spring & Hibernate course.
 - This is the same Customer spring mvc + hibernate CRUD application, but using Maven and Java configuration file
 - The project is created using Eclipse IDE , new Maven project wizard
 	- specify org.apache.maven.archetypes of maven-archetype-quickstart(v1.4)
+	- note that the source folders settings are different from previous projects
+		- check the project's `java build path`
 
 - maven pom.xml
 
@@ -137,6 +139,42 @@ This is Spring demo from Udemy Spring & Hibernate course.
     </pluginManagement>
   </build>
 </project>
+```
+
+
+- MySpringMvcDispatcherServletInitializer
+	- extends AbstractAnnotationConfigDispatcherServletInitializer, which implements WebApplicationInitializer
+	- public interface WebApplicationInitializer
+		- Interface to be implemented in Servlet 3.0+ environments in order to configure the ServletContext programmatically -- as opposed to (or possibly in conjunction with) the traditional web.xml-based approach.
+		- Implementations of this SPI will be detected automatically by SpringServletContainerInitializer, which itself is bootstrapped automatically by any Servlet 3.0 container. See its Javadoc for details on this bootstrapping mechanism.
+	- see reference : 
+		- https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/WebApplicationInitializer.html
+		- https://openhome.cc/Gossip/Spring/Controller.html
+
+```
+package com.example.springdemo.config;
+
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		return new Class[] { DemoAppConfig.class };
+	}
+
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] { "/" };
+	}
+
+}
 ```
 
 - java config file:
@@ -281,34 +319,6 @@ public class DemoAppConfig implements WebMvcConfigurer {
           .addResourceHandler("/resources/**")
           .addResourceLocations("/resources/"); 
     }	
-}
-```
-
-- MySpringMvcDispatcherServletInitializer(???)
-
-```
-package com.example.springdemo.config;
-
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
-public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { DemoAppConfig.class };
-	}
-
-	@Override
-	protected String[] getServletMappings() {
-		return new String[] { "/" };
-	}
-
 }
 ```
 

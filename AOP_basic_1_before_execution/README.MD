@@ -2,20 +2,20 @@ This is Spring demo from Udemy Spring & Hibernate course.
 
 AOP - Aspect Oriented Programming
 
-- Code Tangling
-	- have logging, security code tangled in methods
-- Code Scattering
-	- update all classes to change logging , security code
-- AOP :
+- Problems to solve:
+	- Code Tangling
+		- Logging, security code tangled in methods
+	- Code Scattering
+		- Update all classes to change logging , security code
+- AOP concept:
 	- Aspect encapsulates cross-cutting logic
 	- Aspect can be reused
 		- Same aspect/class applied based on configuration
-
-	- Apply the Proxy design pattern
+	- Apply the **Proxy design pattern**
 		- Code for Aspect is defined in a single class
 		- Business code in your application is cleaner
 		- Congifurable: apply aspects selectively to different parts of app
-		- No need to modify main application code.
+		- No need to modify main application code
 	- Most common usage cases:
 		- Logging, security, transaction
 		- Audit loggin
@@ -48,22 +48,22 @@ AOP - Aspect Oriented Programming
 		- Spring AOP
 			- Key component of Spring
 			- Security, transactions, caching etc
-			- Use run-time weaving of aspects
-			- simpler than AspectJ
-			- disadvantages:
-				- only supports method-level join points
-				- can only apply aspects to beans created by Spring app context
+			- Use **run-time weaving** of aspects
+			- Simpler than AspectJ
+			- Disadvantages:
+				- Only supports method-level join points
+				- Can only apply aspects to beans created by Spring app context
 				- Minor performance cost for run-time weaving
 		- AspectJ
-			- provide full stack functionalities
+			- Provide full stack functionalities
 
-- AOP - @Before Advice, @AfterReturning
+- `@Before` Advice
 	- Most common - Logging, security, transaction
-		- @Transactional uses AOP behind the scenes
+		- `@Transactional` uses AOP behind the scenes
 	- require AspectJ jar files
 		- Spring AOP uses some of AspectJ annotations
 		- Spring AOP uses some of AspectJ classes
-	- Development Process - @Before
+	- Development Process 
 		1. Create target object: AccountDAO
 
 		```
@@ -105,7 +105,7 @@ AOP - Aspect Oriented Programming
 		```
 
 		4. Create an Aspect with @Before advice
-			- Pointcut expression:  "execution(public void addAccount())"
+			- Pointcut expression:  `execution(public void addAccount())`
 			- The annotated method can have any name - here is called beforeAddAccountAdvice()
 
 			```
@@ -125,6 +125,27 @@ AOP - Aspect Oriented Programming
 		- Do not perform any expensive / slow operations
 		- Get in and out as QUICKLY as possible
 
+- Eclipse project settings:
+	- download AspectJ Weaver 1.9.1 - https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
 
-
-- 
+-  Pointcut expression Language
+	- Spring AOP uses AspectJ's pointcut expression language
+	- `execution` pointcuts:
+		- Applied to execution of methods
+		- execution(modifiers-pattern? return-type-pattern declaring-type-pattern?
+			method-name-pattern(param-pattern) throws-pattern?)
+			- The pattern is optional if it has “?”
+		- examples: 
+			- @Before("execution(public void addAccount())")
+			- @Before("execution(public void add*())”)
+			- @Before(“execution(public * processCreditCard*())”)
+			- @Before(“execution(* processCreditCard*())”)
+		- For param-pattern
+			-  () - matches a method with no arguments
+			-  (*) - matches a method with one argument of any type
+			-  (..) - matches a method with 0 or more arguments of any type
+			- examples:
+				- @Before("execution(* addAccount())")
+				- @Before("execution(* addAccount(com.luv2code.aopdemo.Account))")
+				- @Before("execution(* addAccount(..))”)
+				- @Before("execution(* com.luv2code.aopdemo.dao.*.*(..))")
