@@ -142,10 +142,10 @@ This is Spring demo from Udemy Spring & Hibernate course.
 ```
 
 
-- MySpringMvcDispatcherServletInitializer
-	- extends AbstractAnnotationConfigDispatcherServletInitializer, which implements WebApplicationInitializer
+- MySpringMvcDispatcherServletInitializer`
+	- extends AbstractAnnotationConfigDispatcherServletInitializer, which implements `WebApplicationInitializer`
 	- public interface WebApplicationInitializer
-		- Interface to be implemented in Servlet 3.0+ environments in order to configure the ServletContext programmatically -- as opposed to (or possibly in conjunction with) the traditional web.xml-based approach.
+		- Interface to be implemented in Servlet 3.0+ environments in order to **configure the ServletContext programmatically**, as opposed to (or possibly in conjunction with) the traditional web.xml-based approach.
 		- Implementations of this SPI will be detected automatically by SpringServletContainerInitializer, which itself is bootstrapped automatically by any Servlet 3.0 container. See its Javadoc for details on this bootstrapping mechanism.
 	- see reference : 
 		- https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/WebApplicationInitializer.html
