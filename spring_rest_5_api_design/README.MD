@@ -35,6 +35,136 @@ This is Spring demo from Udemy Spring & Hibernate course.
     /api/addCustomer
     /api/updateCustomer
     ```
+- Rest Controller
+    - We use @RequestBody for POST and PUT to access the passed in object
+    - For POST /api/customers : Create a new customer
+        - set the id to 0, for hibernate to insert a new customer
+
+    ```
+    package com.example.springdemo.rest;
+
+    import java.util.List;
+
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.web.bind.annotation.DeleteMapping;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PathVariable;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.PutMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RestController;
+
+    import com.example.springdemo.entity.Customer;
+    import com.example.springdemo.service.CustomerService;
+
+    @RestController
+    @RequestMapping("/api")
+    public class CustomerRestController {
+
+        // autowire the CustomerService
+        @Autowired
+        private CustomerService customerService;
+        
+        // add mapping for GET /customers
+        @GetMapping("/customers")
+        public List<Customer> getCustomers() {
+            
+            return customerService.getCustomers();
+            
+        }
+        
+        // add mapping for GET /customers/{customerId}
+        
+        @GetMapping("/customers/{customerId}")
+        public Customer getCustomer(@PathVariable int customerId) {
+            
+            Customer theCustomer = customerService.getCustomer(customerId);
+            
+            if (theCustomer == null) {
+                throw new CustomerNotFoundException("Customer id not found - " + customerId);
+            }
+            
+            return theCustomer;
+        }
+        
+        // add mapping for POST /customers  - add new customer
+        
+        @PostMapping("/customers")
+        public Customer addCustomer(@RequestBody Customer theCustomer) {
+            
+            // also just in case the pass an id in JSON ... set id to 0
+            // this is force a save of new item ... instead of update
+            
+            theCustomer.setId(0);
+            
+            customerService.saveCustomer(theCustomer);
+            
+            return theCustomer;
+        }
+        
+        // add mapping for PUT /customers - update existing customer
+        
+        @PutMapping("/customers")
+        public Customer updateCustomer(@RequestBody Customer theCustomer) {
+            
+            customerService.saveCustomer(theCustomer);
+            
+            return theCustomer;
+            
+        }
+        
+        // add mapping for DELETE /customers/{customerId} - delete customer
+        
+        @DeleteMapping("/customers/{customerId}")
+        public String deleteCustomer(@PathVariable int customerId) {
+            
+            Customer tempCustomer = customerService.getCustomer(customerId);
+            
+            // throw exception if null
+            
+            if (tempCustomer == null) {
+                throw new CustomerNotFoundException("Customer id not found - " + customerId);
+            }
+                    
+            customerService.deleteCustomer(customerId);
+            
+            return "Deleted customer id - " + customerId;
+        }
+        
+    }
+    ```
+
+- Sending JSON to Spring REST Controllers
+    - For controller to process JSON data, need to set a **HTTP request header**
+    - Content-type: `application/json`
+    - Need to configure REST client to send the correct HTTP request header
+    - For postman - place the json data into the request body and set the content type to JSON.
+
+- DAO
+    - saveCustomer(Customer theCustomer) use session.saveOrUpdate(), so it can handle both insert and update, depending on if the id is set or not.
+
+    ```
+    @Override
+        public void saveCustomer(Customer theCustomer) {
+
+            // get current hibernate session
+            Session currentSession = sessionFactory.getCurrentSession();
+            
+            // save/upate the customer ... finally LOL
+            currentSession.saveOrUpdate(theCustomer);
+            
+        }
+    ```
+
+
+
+
+
+
+
+
+
 
 
 
