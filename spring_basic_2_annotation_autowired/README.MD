@@ -19,6 +19,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes
    - Field autowiring 
       1. just put the @Autowired annotation before the field declaration
       2. Use @Value() instead if you are going to assign literal value, such as @Value("xxx") or read it from properties file, such as @Value("${foo.email}")
+      3. **Note that if you use field injection (@Autowired on a field), the field is not available in the constructor, only afterwards.**
 - @Autowired may need a @Qualifier annotation to specify a specific bean id if more than one implementation beans are available.
 - @Scope to specify the scope for the bean, eg. singleton, prototype etc
 - Lifecycle methods: before java 8 , we can use @PostConstruct and @PreDestroy annotations to specify methods to call after initialization and before destruction, but

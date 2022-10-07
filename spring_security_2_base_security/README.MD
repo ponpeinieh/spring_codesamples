@@ -56,6 +56,8 @@ This is Spring demo from Udemy Spring & Hibernate course.
 
     - Create Spring Security Configuration(@Configuration)
         - The Spring Security team released Spring Security 5.7 on 16 May 2022. In this release, the deprecated the `WebSecurityConfigurerAdapter` class. The current recommendation is to make use of a more component based approach by creating beans to handle the configuration.
+        - See article reference: https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
+        - See accompanying md file.
 
         ```
         import org.springframework.context.annotation.Configuration;
