@@ -1,9 +1,9 @@
 This is Spring demo from Udemy Spring & Hibernate course.   
 - Spring Security : Logout
     - Send data to default logout URL - `/logout`
-    - Logout URL will be handled by Spring Security Filters - no code required
+    - **Logout URL will be handled by Spring Security Filters - no code required**
         - Invalidate user's HTTP session and remove session cookies.
-        - Send the user back to login page  
+        - **Send the user back to login page**
             - Append a logout parameter : `?logout`
 
     - Java Config class:

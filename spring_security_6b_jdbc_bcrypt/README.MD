@@ -23,4 +23,5 @@ Spring Security with JDBC
             PRIMARY KEY (`username`)
             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
             ```
+            
     - Option 2: Write Java code to perform the encryption

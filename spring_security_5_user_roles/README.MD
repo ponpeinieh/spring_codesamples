@@ -108,3 +108,4 @@ This is Spring demo from Udemy Spring & Hibernate course.
                 ```
                 
             2. Create supporting controller code and view page
+                - You need to provide the controller for `/access-denied` and its response page.

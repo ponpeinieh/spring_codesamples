@@ -12,9 +12,10 @@ Spring Security with JDBC
             - With exact columns
             - Spring Security Password Storage
                 - In Spring Security 5, passwords are stored using a specific format: `{id}encodedPassword`
-                - id: encoding algorithm id
-                    - noop (means no opeartion, Plain text passwords)
-                    - bcrypt( means BCrypt password hashing)
+                - id: **encoding algorithm id**
+                    - noop (means **no opeartion**, Plain text passwords)
+                    - bcrypt( means **BCrypt** password hashing)
+                    
             ```
             CREATE TABLE `users` (
             `username` varchar(50) NOT NULL,

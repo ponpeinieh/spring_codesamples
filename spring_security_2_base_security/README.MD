@@ -46,49 +46,49 @@ This is Spring demo from Udemy Spring & Hibernate course.
                 - AbstractSecurityWebApplicationInitializer
             - To Do List:
                 - Extend above abstract class
-                - That's it.
+                - That's it. Nothing to override.
 
                 ```
                 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-                public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
-                }
+
+                public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {}
                 ```
 
     - Create Spring Security Configuration(@Configuration)
-        - The Spring Security team released Spring Security 5.7 on 16 May 2022. In this release, the deprecated the `WebSecurityConfigurerAdapter` class. The current recommendation is to make use of a more component based approach by creating beans to handle the configuration.
+        - The Spring Security team released **Spring Security 5.7** on 16 May 2022. In this release, the **deprecated the `WebSecurityConfigurerAdapter` class**. The current recommendation is to make use of **a more component based approach by creating beans to handle the configuration.**
         - See article reference: https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
         - See accompanying md file.
 
-        ```
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-        import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-        
-        @Configuration
-        @EnableWebSecurity
-        public class DemoSecurityConfig extends WebSecurityConfigurerAdapter { //deprecated
+            ```
+            import org.springframework.context.annotation.Configuration;
+            import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+            import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+            
+            @Configuration
+            @EnableWebSecurity
+            public class DemoSecurityConfig extends WebSecurityConfigurerAdapter { //deprecated
 
-        }
-        ```
+            }
+            ```
 
         - change to the following
 
-        ```
-        package com.example.springsecurity.demo.config;
+            ```
+            package com.example.springsecurity.demo.config;
 
-        import org.springframework.context.annotation.Bean;
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-        import org.springframework.security.core.userdetails.User;
-        import org.springframework.security.core.userdetails.UserDetails;
-        import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+            import org.springframework.context.annotation.Bean;
+            import org.springframework.context.annotation.Configuration;
+            import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+            import org.springframework.security.core.userdetails.User;
+            import org.springframework.security.core.userdetails.UserDetails;
+            import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-        @Configuration
-        @EnableWebSecurity
-        public class DemoSecurityConfig {
-            //...
-        }
-        ```
+            @Configuration
+            @EnableWebSecurity
+            public class DemoSecurityConfig {
+                //...
+            }
+            ```
 
     - Add users, passwords, roles
 
@@ -98,7 +98,7 @@ This is Spring demo from Udemy Spring & Hibernate course.
             
             UserDetails john = User.builder()
                 .username("john")
-                .password("{noop}test123") //{noop} for encoder?
+                .password("{noop}test123") //{noop} for plain text password encoder
                 .roles("EMPLOYEE")
                 .build();
 
@@ -114,10 +114,10 @@ This is Spring demo from Udemy Spring & Hibernate course.
                     .roles("ADMIN")
                     .build();
             
-            return new InMemoryUserDetailsManager(john, mary, susan);
-            
+            return new InMemoryUserDetailsManager(john, mary, susan);           
         }
         ```
+
 - Run the App: show the default login form
 
 - Change Context root (also called context path):
