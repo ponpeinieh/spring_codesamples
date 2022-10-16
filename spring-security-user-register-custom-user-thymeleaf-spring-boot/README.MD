@@ -1,6 +1,13 @@
 This is Spring demo from Udemy Spring & Hibernate course. 
 This is extra sample using Spring Boot + Spring Security with customized User table and User registration function
 
+- Note that this sample still use the deprecated `WebSecurityConfigurerAdapter`, so it configures a `AuthenticationManagerBuilder` object and pass in the new `authenticationProvider`, which uses the custom `UserDetailsService` implementation.
+- The `UserDetailsService` implementation is the spirit of this sample, since it allows us to use customized user/role table schema.
+- For using new component-based config style, we simply autowired the UserDetailsService implementation (@Service annotation will do the job!), of course it needs the passwordEncoder object (eg. BCryptPasswordEncoder) which is autowired too.
+- In Spring Boot, there is no need to config authenticationProvider, just also autowires the UserDetailsService implementation. 
+    - Just a reminder here, acutally the `HttpSercurity` object has `authenticationProvider​()` and `userDetailsService()` methods, which you can use to pass in these needed implementation objects.
+    (I haven't test, but it should also do the job.)
+
 - First the security config 
     - note the `.successHandler(customAuthenticationSuccessHandler)` to register a handler after successful login
         - store the user object in the session
@@ -294,8 +301,9 @@ This is extra sample using Spring Boot + Spring Security with customized User ta
         public void save(CrmUser crmUser);
     }
     ```
+
     - Service implementation class
-        - BCryptPasswordEncoder is the BCrypt encryptor
+        - `BCryptPasswordEncoder` is the BCrypt encryptor
 
     ```
     package com.luv2code.springsecurity.demo.service;
