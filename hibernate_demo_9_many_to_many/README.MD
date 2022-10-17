@@ -44,7 +44,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
     ```
 
     - code for creating Courses and Students
-        - below code first save the Course entity and then save the Student entities separately
+        - below code **first save the Course entity and then save the Student entities separately**
         - if not calling session.save() on Student entities, it will throw exception:
         ```
         java.lang.IllegalStateException: org.hibernate.TransientObjectException: object references an unsaved transient instance - save the transient instance before flushing: com.example.hibernate.demo.entity.Student

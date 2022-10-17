@@ -33,11 +33,11 @@ Spring Boot - REST CRUD API with Hibernate
 			5. Delete an existing employee
 		- Hibernate Session Factory:
 			- In the past, our DAO used a Hibernate Session Factory
-				- Hibernate Session Factory needs a Data Source
+				- **Hibernate Session Factory needs a Data Source**
 				- The data source defines database connection info
 				- We normally had to do this configuration manually
 			- Spring Boot to the Rescue
-				- Spring Boot will automatically configure your data source for you
+				- **Spring Boot will automatically configure your data source for you**
 					- Based on entries from Maven pom file
 						- JDBC Driver: mysql-connector-java
 						- Spring Data (ORM): spring-boot-starter-data-jpa
@@ -52,7 +52,7 @@ Spring Boot - REST CRUD API with Hibernate
 
 		- Auto Data Source Configuration
 			- **Based on configs, Spring Boot will automatically create the beans**:
-				- DataSource, EntityManager(from Java Persistence API, JPA), ...
+				- **DataSource**, **EntityManager**(from Java Persistence API, JPA), ...
 			- You can then inject these into your DAOs
 		- JPA:
 			- Standard API for Object-to-Relational-Mapping (ORM)

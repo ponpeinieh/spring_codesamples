@@ -85,6 +85,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 - 1-to-1 mapping
     - @OneToOne(cascade = CascadeType.ALL) , by default if no cascade is specified, no operations are cascaded
     - @JoinColumn(name= "instructor_detail_id") , here name attribute is the foreign key column in the instructor table 
+	
 ```
 @OneToOne(cascade = CascadeType.ALL)
 @JoinColumn(name = "instructor_detail_id")

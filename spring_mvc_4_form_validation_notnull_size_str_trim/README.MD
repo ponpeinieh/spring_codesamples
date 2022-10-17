@@ -31,6 +31,9 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes
 	1. Add validation rule to Customer class
 		- @NotNull(message="is required"), actually if the text input is not entered, it will be an empty string, instead of a null string object. Unless a `StringTrimmerEditor` is used to trim spaces and results in a null string object
 		- @Size(min=1, message="minimum size is 1"), if no trimming of spaces is applied, use @Size with minimum value of 1 to deal with empty text field input. 
+		- Note actually for text input, if not using StringTrimmerEditor, you should not use @NotNull for it, since it will never be a null string object, instread you should use 
+			- @NotEmpty (Must not be null nor empty.) 
+			- @NotBlank (Must not be null and must contain at least one non-whitespace character. )
 	2. Display error messages on HTML form 
 		- use <form:errors> 
 	3. Perform validation in the Controller class

@@ -10,19 +10,19 @@ Spring Boot - REST CRUD API with Hibernate
 	- Spring Data JPA : problem to solve
 		- Need to create a DAO for another entity? Customer, Student, Product, Book ...
 		- Do we have to repeat all of the same code again???
-		- Most of the code is the same. Only difference is the entity type and primary key
-		- Why not create a DAO for me, plug in my entity type and primary key, give me all of the basic CRUD features for free
+		- Most of the code is the same. **Only difference is the entity type and primary key**
+		- Why not **create a DAO for me, plug in my entity type and primary key, give me all of the basic CRUD features for free**
 	- Spring Data JPA 
 		- Create a DAO and just plug in your entity type and primary key
 		- Spring will give you a CRUD implementation for FREE
-		- Interface: JpaRepository
+		- Interface: `JpaRepository`
 			- Exposes methods (some by inheritance from parents)
 				- findAll()
 				- findById(...)
 				- save(...)
 				- deleteById(...)
 		- Development Process
-			1. Extend JpaRepository interface. No need for implementation class.
+			1. **Extend JpaRepository interface**. No need for implementation class.
 			
 			```
 			public interface EmployeeRepository extends JpaRepository<Employee, Integer> {

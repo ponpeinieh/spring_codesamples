@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 public class MyLoggerConfig implements InitializingBean, DisposableBean{
 	@Value("${root.logger.level}")
 	private String rootLoggerLevel;
-	@Value("${root.logger.level}")
+	@Value("${printed.logger.level}")
 	private String printedLoggerLevel; 
 	 
 	public void initLogger() {

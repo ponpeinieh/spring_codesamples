@@ -20,7 +20,7 @@ Spring Boot - REST CRUD API with Hibernate
 		|Save or update entity|session.saveOrUpdate(...)|entityManager.merge(...)|
 		|Delete entity|session.delete(...)|entityManager.remove(...)|
 
-		- persist() is similar to save (with transaction) and it adds the entity object to the persistent context, so any further changes are tracked. If the object properties are changed before the transaction is committed or session is flushed, it will also be saved into database. Second difference is that we can use persist() method only within the boundary of a transaction, so it’s safe and takes care of any cascaded objects. Finally, persist **doesn’t return anything** so we need to use the persisted object to get the generated identifier value. 
+		- persist() is similar to save (with transaction) and it **adds the entity object to the persistent context**, so any further changes are tracked. If the object properties are changed before the transaction is committed or session is flushed, it will also be saved into database. Second difference is that we can use persist() method only within the boundary of a transaction, so it’s safe and takes care of any cascaded objects. Finally, persist **doesn’t return anything** so we need to use the persisted object to get the generated identifier value. 
 
 		- Note the specialty about merge(): Hibernate merge can be used to update existing values, however this method **create a copy from the passed entity object and return it**. **The returned object is part of persistent context and tracked for any changes, passed object is not tracked**. This is the major difference with merge() from all other methods. 
 

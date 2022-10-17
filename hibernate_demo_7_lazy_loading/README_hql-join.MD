@@ -8,6 +8,7 @@
 	- In JPQL, you can define a `JOIN` statement based on a specified association between 2 entities. Your persistence provider, e.g., Hibernate, translates this into an SQL JOIN statement.
 		- Example : a JPQL query that returns all Author entities who’ve written a Book which title contains the word “Hibernate”. It joins the Author entity with the Book entity and uses the title attribute of the Book in the WHERE clause.
 		- List<Author> authors = em.createQuery("SELECT a FROM Author a JOIN a.books b WHERE b.title LIKE '%Hibernate%'", Author.class).getResultList();
+			- Note that the return value is a list of Author objects, since the Select part of the statement includes only fields from Author.
 		-  It uses the defined many-to-many association to join the Author table with the association table BookAuthor. It then joins the association table with the Book table.
 			```
 				select
@@ -27,9 +28,11 @@
 					book2_.title like '%Hibernate%'
 			```
 	- The `LEFT JOIN` statement is similar to the JOIN statement. The main difference is that a LEFT JOIN statement includes all rows of the entity or table referenced on the left side of the statement.
-		- Example: select all Authors with the lastName “Janssen” and their Books. If the database contains a Book for a specific Author, the query returns it as the second element in the Object[]. Otherwise, that array element is null.
+		- Example: select all Authors with the lastName “Janssen” and their Books. If the database contains a Book for a specific Author, the query returns it as the **second element in the Object[]**. Otherwise, that array element is null.
 		- A simple JOIN statement would only return the Authors who have written a Book. The second element of the Object[] would never be null.
 		- List<Object[]> authors = em.createQuery("SELECT a, b FROM Author a LEFT JOIN a.books b WHERE a.lastName = 'Janssen'").getResultList();
+			- Note that the return value is a list of Object arrays, since the Select part of the statement includes both fields from Author and Book
+
 			```
 				select
 					author0_.id as id1_0_0_,
@@ -52,10 +55,11 @@
 				where
 					author0_.lastName='Janssen'
 			```
-	- The FETCH keyword of the `JOIN FETCH` statement is JPA-specific. 
-		- It tells the persistence provider to not only join the 2 database tables within the query but to also initialize the association on the returned entity. You can use it with a JOIN and a LEFT JOIN statement.
+	- **The FETCH keyword of the `JOIN FETCH` statement is JPA-specific.**
+		- It tells the persistence provider to not only join the 2 database tables within the query but to also **initialize the association on the returned entity**. You can **use it with a JOIN and a LEFT JOIN statement.**
 		- List<Author> authors = em.createQuery("SELECT a FROM Author a JOIN FETCH a.books b WHERE b.title LIKE '%Hibernate%'", Author.class).getResultList();
-		- The JPQL query selects Author entities. But as you can see in the SQL statement, Hibernate now selects all columns mapped by the Author and the Book entity. Hibernate then maps the result set to Author and Book entities. It uses the Book entities to initialize the books attribute of each Author entity before it returns a List of Author entities.
+			- Note that the return value is a list of Author objects, but the Author object will have the reference to the Books collection.
+		- The JPQL query selects Author entities. But as you can see in the SQL statement, Hibernate now selects all columns mapped by the Author and the Book entity. Hibernate then **maps the result set to Author and Book entities.** It uses the Book entities to initialize the books attribute of each Author entity before it returns a List of Author entities.
 			```
 				select
 					author0_.id as id1_0_0_,

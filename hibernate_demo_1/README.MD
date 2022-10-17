@@ -141,6 +141,7 @@ public class Student {
 ### Hibernate code 
 
 - configure() method can use the default hibernate config file of `hibernate.cfg.xml`, so no input parameter is specified.
+
 ``` 
 import org.hibernate.cfg.Configuration;
 

@@ -46,6 +46,7 @@ javax.persistence.EntityNotFoundException: deleted object would be re-saved by c
 - orphanRemoval 
 	- We can annotate the OneToOne mapping of InstructorDetail field in Instructor entity with `orphanRemoval` attribute set to true, so it will automatically remove the child entity (InstructorDetail) once the association has been broken
 	- Below notes are from Oracle
+
 ```
 Orphan Removal in Relationships
 When a target entity in one-to-one or one-to-many relationship is removed from the relationship, it is often desirable to cascade the remove operation to the target entity. Such target entities are considered “orphans,” and the orphanRemoval attribute can be used to specify that orphaned entities should be removed. For example, if an order has many line items and one of them is removed from the order, the removed line item is considered an orphan. If orphanRemoval is set to true, the line item entity will be deleted when the line item is removed from the order.
@@ -101,5 +102,4 @@ Hibernate: delete from instructor_detail where id=?
 TRACE BasicBinder - binding parameter [1] as [INTEGER] - [8]
 ```
 
-- Note that if we still have the cascade type set to `CascadeType.ALL` for the Instructor field in InstructorDetail entity, 
-and the `orphanRemoval` set to true in InstructorDetail field in Instructor entity, breaking the association between Instructor and InstructorDetail, will not only delete the InstructorDetail entity, but also the Instructor entity.
+- **Note that if we still have the cascade type set to `CascadeType.ALL` for the Instructor field in InstructorDetail entity, and the `orphanRemoval` set to true in InstructorDetail field in Instructor entity, breaking the association between Instructor and InstructorDetail, will not only delete the InstructorDetail entity, but also the Instructor entity.**

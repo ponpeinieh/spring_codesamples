@@ -5,7 +5,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
 - Delete the Course won't delete the Instructor, and vice versa, so the cascade type attribute needs to specify all but CascadeType.REMOVE
 
 - Course entity (on the many side)
-	- `@JoinColumn` is needed to specify the foreign key column in the course table
+	- `@JoinColumn` is needed to specify the **foreign key column** in the course table
 
 ```
 @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
@@ -27,7 +27,7 @@ private List<Course> courses;
 	- On the many side of it, that is where the foreign key is defined, @ManyToOne is needed on the FK field and @JoinColumn to specify the FK column name
 	- On the one side of it, a collection is required to store the entities and @OneToMany(mappedBy=xxxx) is needed to specify the corresponding field name on the many side of the relationship which has the @JoinColumn annotation.
 
-- A helper method in Instructor is created, ie. `add()` to add the Course entity into the collection and set the corresponding Instructor reference for the Course entity.
+- **A helper method in Instructor is created, ie. `add()` to add the Course entity into the collection and set the corresponding Instructor reference for the Course entity.**
 
 - Code
 	- Course entity

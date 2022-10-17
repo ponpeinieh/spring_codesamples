@@ -74,7 +74,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
         ```
 
         - Create Course and Reviews
-            - Since CasecadeType.ALL is used, we only need to save the Course entity.
+            - **Since CasecadeType.ALL is used, we only need to save the Course entity.**
 
             ```
             // Create a SessionFactory
@@ -85,7 +85,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
                     .addAnnotatedClass(Review.class).buildSessionFactory();
             // Create a Session
             var session = sessionFactory.getCurrentSession();
-            // create a Instructor object
+            // create a Course object
             try { 
                 session.beginTransaction();
                 //create a course
@@ -204,7 +204,7 @@ This is Spring demo from Udemy Spring & Hibernate course. It includes hibernate 
             - First it retrieves Course entity(along with Instructor and InstructorDetail, since fetch type is EAGER)
             - Then it retrieves the Review entities for the Course entity.
             - Then it update the Review entities with their Course references set to null 
-            - Then it runs a loop to delete each Review entity.
+            - Then it **runs a loop to delete each Review entity.**
             - Finally it deletes the Course entity.
             - See reference on its drawbacks: https://thorben-janssen.com/avoid-cascadetype-delete-many-assocations/
 
