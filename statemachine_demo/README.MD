@@ -330,3 +330,59 @@ public class StateMachineConfig
 Message headers are generally passed on until machine runs to completion for a specific event. For example if an event is causing transition into a state A which have an anonymous transition into a state B, original event is available for actions or guards in state B.
 
 
+- Use StateMachineFactory to create StateMachine
+
+```
+public class Bean3 {
+
+	@Autowired
+	StateMachineFactory<States, Events> factory;
+
+	void method() {
+		StateMachine<States,Events> stateMachine = factory.getStateMachine();
+		stateMachine.start();
+	}
+}
+```
+
+- Event trigger
+
+```
+@Autowired
+StateMachine<States, Events> stateMachine;
+
+void signalMachine() {
+	stateMachine.sendEvent(Events.E1);
+
+	Message<Events> message = MessageBuilder
+			.withPayload(Events.E2)
+			.setHeader("foo", "bar")
+			.build();
+	stateMachine.sendEvent(message);
+}
+```
+
+- timer action
+    - PlayingAction updates an extended state variable called ELAPSEDTIME, which the player can use to read and update its LCD status display. PlayingAction also handles track shifting when the user goe back or forward in tracks. The following example defines PlayingAction:
+```
+public static class PlayingAction implements Action<States, Events> {
+
+	@Override
+	public void execute(StateContext<States, Events> context) {
+		Map<Object, Object> variables = context.getExtendedState().getVariables();
+		Object elapsed = variables.get(Variables.ELAPSEDTIME);
+		Object cd = variables.get(Variables.CD);
+		Object track = variables.get(Variables.TRACK);
+		if (elapsed instanceof Long) {
+			long e = ((Long)elapsed) + 1000l;
+			if (e > ((Cd) cd).getTracks()[((Integer) track)].getLength()*1000) {
+				context.getStateMachine().sendEvent(MessageBuilder
+						.withPayload(Events.FORWARD)
+						.setHeader(Headers.TRACKSHIFT.toString(), 1).build());
+			} else {
+				variables.put(Variables.ELAPSEDTIME, e);
+			}
+		}
+	}
+}
+```
